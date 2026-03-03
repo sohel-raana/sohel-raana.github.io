@@ -4,288 +4,366 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>S. M. Sohel Rana</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0b0f0a;
-  --surface: #111610;
-  --card: #161c14;
-  --border: rgba(120,200,80,0.12);
-  --green: #7ec850;
-  --lime: #b5e853;
-  --teal: #4ecdc4;
-  --muted: #6b8060;
-  --text: #ddeedd;
-  --dim: #7a9070;
-  --glow: rgba(126,200,80,0.12);
-}
 *{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#faf7f2;--sand:#f5f0e8;--warm:#ede8e0;--paper:#ffffff;
+  --ink:#1a1612;--rust:#c4622d;--rust2:#e07040;--clay:#8b4513;
+  --muted:#8a7968;--line:rgba(26,22,18,0.09);--lineh:rgba(196,98,45,0.25);
+}
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;}
 
-/* SCAN LINE OVERLAY */
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
-}
+/* ── CURSOR ── */
+#cur,#curR{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#cur{width:7px;height:7px;background:var(--rust);transition:transform 0.1s;}
+#curR{width:32px;height:32px;border:1.5px solid var(--rust);opacity:0.4;transition:left 0.14s ease,top 0.14s ease;}
 
-/* NAV */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(11,15,10,0.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 2.5rem;height:52px;
-}
-.nav-id{
-  font-family:'JetBrains Mono',monospace;font-size:0.88rem;
-  letter-spacing:0.1em;color:var(--green);display:flex;align-items:center;gap:0.5rem;
-}
-.nav-id .dot{width:7px;height:7px;background:var(--lime);border-radius:50%;animation:pulse 2.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(181,232,83,0.4)}50%{opacity:0.6;box-shadow:0 0 0 5px rgba(181,232,83,0)}}
-.nav-links{display:flex;gap:1.8rem;list-style:none;}
-.nav-links a{font-family:'JetBrains Mono',monospace;font-size:0.82rem;letter-spacing:0.08em;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.nav-links a:hover{color:var(--green);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
-.hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px;transition:all 0.3s;}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hamburger.open span:nth-child(2){opacity:0;}
-.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.mob-menu{display:none;position:fixed;top:52px;left:0;right:0;background:rgba(11,15,10,0.98);border-bottom:1px solid var(--border);z-index:99;flex-direction:column;padding:1.5rem 0;}
-.mob-menu.open{display:flex;}
-.mob-menu a{font-family:'JetBrains Mono',monospace;font-size:0.95rem;letter-spacing:0.1em;color:var(--muted);text-decoration:none;padding:0.85rem 2.5rem;border-bottom:1px solid rgba(120,200,80,0.05);}
-.mob-menu a:active{color:var(--green);}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(250,247,242,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 3rem;height:56px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:600;color:var(--ink);}
+.nav-links{display:flex;gap:2.2rem;list-style:none;}
+.nav-links a{font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover{color:var(--rust);}
+.nav-cta{background:var(--ink);color:var(--bg);padding:0.48rem 1.2rem;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;text-decoration:none;transition:background 0.2s;}
+.nav-cta:hover{background:var(--rust);}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px;}
+.mob-btn span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all 0.3s;}
+.mob-btn.o span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mob-btn.o span:nth-child(2){opacity:0;}
+.mob-btn.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-nav{display:none;position:fixed;inset:0;background:var(--sand);z-index:290;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mob-nav.o{display:flex;}
+.mob-nav a{font-family:'Crimson Pro',serif;font-size:2.2rem;font-style:italic;color:var(--ink);text-decoration:none;transition:color 0.2s;}
+.mob-nav a:hover{color:var(--rust);}
 
-/* HERO */
-.hero{
-  min-height:100vh;display:flex;align-items:center;
-  padding:6rem 2.5rem 4rem;position:relative;z-index:1;overflow:hidden;
-}
-.hero-bg{
-  position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 60% 50% at 70% 50%, rgba(78,205,196,0.05) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(126,200,80,0.06) 0%, transparent 60%);
-}
-/* Topographic lines */
-.topo{position:absolute;right:0;top:0;bottom:0;width:55%;pointer-events:none;opacity:0.07;}
-.topo svg{width:100%;height:100%;}
-.hero-inner{max-width:680px;position:relative;z-index:2;}
-.hero-tag{font-family:'JetBrains Mono',monospace;font-size:0.85rem;letter-spacing:0.18em;color:var(--lime);margin-bottom:1.2rem;opacity:0;animation:up 0.6s 0.1s forwards;}
-.hero-name{font-family:'Merriweather',serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:400;line-height:1.1;color:var(--text);margin-bottom:0.8rem;opacity:0;animation:up 0.6s 0.25s forwards;}
-.hero-name span{color:var(--green);}
-.hero-sub{font-family:'JetBrains Mono',monospace;font-size:0.97rem;letter-spacing:0.07em;color:var(--dim);margin-bottom:2rem;opacity:0;animation:up 0.6s 0.4s forwards;}
-.hero-chips{display:flex;flex-wrap:wrap;gap:0.45rem;margin-bottom:2.5rem;opacity:0;animation:up 0.6s 0.55s forwards;}
-.chip{font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.06em;padding:0.28rem 0.7rem;border:1px solid var(--border);background:rgba(126,200,80,0.04);color:var(--green);border-radius:3px;}
-.hero-btns{display:flex;gap:0.9rem;flex-wrap:wrap;opacity:0;animation:up 0.6s 0.7s forwards;}
-.btn{padding:0.6rem 1.4rem;font-family:'JetBrains Mono',monospace;font-size:0.88rem;letter-spacing:0.1em;border-radius:3px;text-decoration:none;transition:all 0.22s;cursor:pointer;border:none;display:inline-block;}
-.btn-p{background:var(--green);color:#0b0f0a;}
-.btn-p:hover{background:var(--lime);box-shadow:0 0 20px rgba(126,200,80,0.35);}
-.btn-o{background:transparent;border:1px solid rgba(126,200,80,0.32);color:var(--green);}
-.btn-o:hover{background:rgba(126,200,80,0.07);box-shadow:0 0 14px rgba(126,200,80,0.15);}
-@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+/* ── HERO ── */
+.hero{min-height:100vh;background:var(--sand);display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.hero-bg-art{position:absolute;inset:0;pointer-events:none;}
+.hero-bg-art svg{width:100%;height:100%;}
+/* top strip */
+.hero-top{padding:100px 3rem 0;max-width:1280px;margin:0 auto;width:100%;display:flex;align-items:flex-start;justify-content:space-between;position:relative;z-index:2;}
+.hero-badge-group{display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;}
+.hero-pill{font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;padding:0.35rem 0.85rem;border:1.5px solid var(--lineh);color:var(--rust);background:rgba(196,98,45,0.06);}
+.hero-location{font-size:0.76rem;letter-spacing:0.1em;color:var(--muted);font-weight:400;}
+/* big name */
+.hero-name-wrap{padding:2.5rem 3rem 0;max-width:1280px;margin:0 auto;width:100%;position:relative;z-index:2;}
+.hero-name{font-family:'Crimson Pro',serif;font-weight:400;line-height:0.9;letter-spacing:-0.01em;color:var(--ink);white-space:nowrap;font-size:clamp(3.8rem,9.5vw,10.5rem);}
+.hero-name em{font-style:italic;color:var(--rust);}
+/* bottom */
+.hero-bottom{margin-top:auto;padding:3rem;max-width:1280px;margin-left:auto;margin-right:auto;width:100%;position:relative;z-index:2;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr 1fr;gap:3rem;align-items:end;}
+.hero-desc{font-size:1.06rem;color:var(--muted);line-height:1.82;font-weight:300;}
+.hero-stats{display:flex;flex-direction:column;gap:0;}
+.hstat{display:flex;align-items:baseline;gap:1rem;padding:0.7rem 0;border-bottom:1px solid var(--line);}
+.hstat:first-child{border-top:1px solid var(--line);}
+.hstat-n{font-family:'Crimson Pro',serif;font-size:2.8rem;font-weight:400;color:var(--rust);line-height:1;}
+.hstat-l{font-size:0.74rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.hero-links-col{display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;}
+.hlink{font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:0.45rem;transition:color 0.2s;padding:0.4rem 0;}
+.hlink span{font-size:0.6rem;transition:transform 0.2s;}
+.hlink:hover{color:var(--rust);}
+.hlink:hover span{transform:translate(2px,-2px);}
 
-/* SECTIONS */
-section{position:relative;z-index:1;padding:5rem 0;}
-.container{max-width:1060px;margin:0 auto;padding:0 2.5rem;}
-.sec-pre{font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--lime);margin-bottom:0.5rem;display:flex;align-items:center;gap:0.6rem;}
-.sec-pre::before{content:'';width:20px;height:1px;background:var(--lime);}
-.sec-title{font-family:'Merriweather',serif;font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:400;color:var(--text);margin-bottom:2.8rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+/* ── MARQUEE ── */
+.mq{background:var(--rust);overflow:hidden;padding:0.85rem 0;}
+.mq-track{display:flex;white-space:nowrap;animation:mqs 22s linear infinite;}
+.mq-item{font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,247,242,0.85);padding:0 2rem;}
+.mq-dot{color:rgba(250,247,242,0.35);padding:0 0.4rem;}
+@keyframes mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ABOUT */
-#about{background:var(--surface);}
-.about-wrap{display:grid;grid-template-columns:1.1fr 0.9fr;gap:4rem;align-items:start;}
-.about-body{font-size:1.1rem;color:var(--dim);line-height:1.9;}
-.about-body p+p{margin-top:1rem;}
-.ri-head{font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--lime);margin-bottom:0.9rem;}
-.ri-wrap{display:flex;flex-wrap:wrap;gap:0.42rem;}
-.ri-item{font-size:1rem;font-weight:500;padding:0.3rem 0.8rem;border:1px solid var(--border);background:rgba(126,200,80,0.04);color:var(--teal);border-radius:2px;transition:all 0.2s;}
-.ri-item:hover{border-color:rgba(78,205,196,0.4);background:rgba(78,205,196,0.07);color:#7efff6;}
-/* Contact info quick */
-.hero-contact{margin-top:2.2rem;}
-.hc-row{display:flex;gap:0.7rem;align-items:center;margin-bottom:0.5rem;}
-.hc-label{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.12em;color:var(--lime);min-width:70px;}
-.hc-val{font-size:0.98rem;color:var(--dim);}
-.hc-val a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(78,205,196,0.2);}
-.hc-val a:hover{color:#7efff6;}
+/* ── SHARED ── */
+.wrap{max-width:1280px;margin:0 auto;padding:0 3rem;}
+section{padding:7rem 0;}
+.sec-hd{display:flex;align-items:center;gap:1.5rem;margin-bottom:5rem;}
+.sec-n{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--rust);font-weight:600;opacity:0.7;}
+.sec-t{font-family:'Crimson Pro',serif;font-size:clamp(2rem,3.2vw,2.9rem);font-style:italic;font-weight:400;color:var(--ink);}
+.sec-line{flex:1;height:1px;background:var(--line);}
 
-/* EXPERIENCE / TIMELINE */
+/* ── ABOUT ── */
+#about{background:var(--paper);}
+.ab-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:7rem;}
+.ab-body{font-size:1.07rem;color:var(--muted);line-height:1.92;font-weight:300;}
+.ab-body p+p{margin-top:1.1rem;}
+.ab-body strong{color:var(--ink);font-weight:600;}
+.ab-contacts{margin-top:2.8rem;}
+.ct{display:flex;gap:1.5rem;padding:0.75rem 0;border-bottom:1px solid var(--line);align-items:baseline;}
+.ct-k{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--rust);font-weight:600;width:72px;flex-shrink:0;}
+.ct-v{font-size:0.95rem;color:var(--muted);}
+.ct-v a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;transition:all 0.2s;}
+.ct-v a:hover{color:var(--rust);border-color:var(--lineh);}
+.ri-lbl{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1.3rem;}
+.ri-list{display:flex;flex-direction:column;}
+.ri-row{padding:0.82rem 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;cursor:default;transition:color 0.18s;}
+.ri-row:hover{color:var(--rust);}
+.ri-row-l{font-size:0.98rem;font-weight:400;}
+.ri-row-r{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);opacity:0.7;}
+
+/* ── EXPERIENCE ── */
 #experience{background:var(--bg);}
-.tl{position:relative;}
-.tl::before{content:'';position:absolute;left:130px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(126,200,80,0.2) 5%,rgba(126,200,80,0.2) 95%,transparent);}
-.tl-item{display:grid;grid-template-columns:130px 1fr;gap:0 2.5rem;margin-bottom:2.8rem;}
-.tl-date{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--lime);text-align:right;padding-top:0.22rem;line-height:1.6;}
-.tl-body{padding-left:2rem;position:relative;}
-.tl-body::before{content:'';position:absolute;left:-0.3rem;top:0.55rem;width:8px;height:8px;border:1.5px solid var(--green);border-radius:50%;background:var(--bg);}
-.tl-role{font-family:'Merriweather',serif;font-size:1.13rem;font-weight:400;color:var(--text);margin-bottom:0.15rem;}
-.tl-org{font-family:'JetBrains Mono',monospace;font-size:0.8rem;letter-spacing:0.05em;color:var(--green);opacity:0.75;margin-bottom:0.65rem;}
-.tl-loc{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--muted);margin-bottom:0.6rem;}
-.tl-list{list-style:none;color:var(--dim);font-size:1.02rem;}
-.tl-list li{padding-left:1.1rem;position:relative;margin-bottom:0.32rem;}
-.tl-list li::before{content:'›';position:absolute;left:0;color:var(--lime);}
-
-/* SKILLS */
-#skills{background:var(--surface);}
-.sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;}
-.sk-card{background:var(--card);border:1px solid var(--border);padding:1.4rem;border-radius:4px;transition:all 0.22s;position:relative;overflow:hidden;}
-.sk-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--teal));opacity:0;transition:opacity 0.22s;}
-.sk-card:hover{border-color:rgba(126,200,80,0.25);background:rgba(126,200,80,0.03);}
-.sk-card:hover::after{opacity:1;}
-.sk-head{font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--green);margin-bottom:0.85rem;}
-.sk-pills{display:flex;flex-wrap:wrap;gap:0.35rem;}
-.sk-pill{font-size:0.98rem;font-weight:500;padding:0.18rem 0.55rem;border:1px solid rgba(126,200,80,0.12);background:rgba(126,200,80,0.04);color:#9bbd80;border-radius:2px;}
-
-/* PUBLICATIONS */
-#publications{background:var(--bg);}
-.pub-list{display:flex;flex-direction:column;gap:0.85rem;}
-.pub{border:1px solid var(--border);border-radius:4px;padding:1.3rem 1.5rem;background:var(--card);transition:all 0.2s;}
-.pub:hover{border-color:rgba(126,200,80,0.28);background:rgba(126,200,80,0.03);}
-.pub-meta{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.4rem;flex-wrap:wrap;}
-.pub-journal{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.09em;color:var(--lime);}
-.pub-badge{font-family:'JetBrains Mono',monospace;font-size:0.65rem;letter-spacing:0.07em;padding:0.08rem 0.4rem;border:1px solid rgba(78,205,196,0.3);background:rgba(78,205,196,0.07);color:var(--teal);border-radius:2px;}
-.pub-title{font-family:'Merriweather',serif;font-size:1.07rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:0.3rem;}
-.pub-authors{font-size:0.97rem;color:var(--dim);}
-.pub-link{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--lime);text-decoration:none;border-bottom:1px solid rgba(181,232,83,0.25);margin-left:0.5rem;}
-.pub-link:hover{color:var(--green);}
-
-/* PROJECTS */
-#projects{background:var(--surface);}
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
-.proj-card{background:var(--card);border:1px solid var(--border);padding:1.5rem;border-radius:4px;transition:all 0.22s;position:relative;overflow:hidden;}
-.proj-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--lime),transparent);opacity:0;transition:opacity 0.22s;}
-.proj-card:hover{border-color:rgba(126,200,80,0.25);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,0.3);}
-.proj-card:hover::before{opacity:1;}
-.proj-title{font-family:'Merriweather',serif;font-size:1.05rem;font-weight:400;color:var(--text);margin-bottom:0.5rem;line-height:1.4;}
-.proj-desc{font-size:1rem;color:var(--dim);line-height:1.65;margin-bottom:1rem;}
-.proj-link{font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.07em;color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(78,205,196,0.25);transition:all 0.2s;}
-.proj-link:hover{color:#7efff6;}
-
-/* AWARDS */
-#awards{background:var(--bg);}
-.aw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;}
-.aw-card{background:var(--card);border:1px solid var(--border);padding:1.3rem;border-radius:4px;transition:all 0.2s;}
-.aw-card:hover{border-color:rgba(126,200,80,0.24);}
-.aw-year{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--lime);margin-bottom:0.3rem;}
-.aw-title{font-size:1.04rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;}
-.aw-body{font-size:0.93rem;color:var(--dim);}
-
-/* FOOTER */
-footer{background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 2.5rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;color:rgba(126,200,80,0.25);z-index:1;position:relative;}
-
-/* RESPONSIVE */
-@media(max-width:860px){
-  .about-wrap{grid-template-columns:1fr;}
-  .tl::before{left:0;}
-  .tl-item{grid-template-columns:1fr;}
-  .tl-date{text-align:left;margin-bottom:0.3rem;}
-  .tl-body{padding-left:1.2rem;}
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-  section{padding:3rem 0;}
-  .hero{padding:5rem 1.25rem 3rem;}
-  .container{padding:0 1.25rem;}
+.tl{display:flex;flex-direction:column;}
+.tl-item{display:grid;grid-template-columns:260px 1fr;border-top:1px solid var(--line);padding:3rem 0;gap:4rem;align-items:start;}
+.tl-item:last-child{border-bottom:1px solid var(--line);}
+.tl-item:hover .tl-logo-wrap{border-color:var(--lineh);}
+.tl-left{display:flex;flex-direction:column;gap:1.2rem;}
+/* LOGO BOX */
+.tl-logo-wrap{
+  width:80px;height:80px;background:var(--paper);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  overflow:hidden;transition:border-color 0.2s;flex-shrink:0;
 }
-@media(max-width:480px){
-  .hero-name{font-size:clamp(2rem,9vw,3rem);}
+.tl-logo-wrap img{width:60px;height:60px;object-fit:contain;}
+.tl-logo-wrap .logo-fallback{
+  width:60px;height:60px;display:flex;align-items:center;justify-content:center;
+  font-family:'Crimson Pro',serif;font-size:1.4rem;font-style:italic;
+  color:var(--rust);font-weight:400;text-align:center;line-height:1.1;
+}
+.tl-meta{display:flex;flex-direction:column;gap:0.3rem;}
+.tl-yr{font-size:0.74rem;letter-spacing:0.1em;color:var(--rust);font-weight:600;}
+.tl-kind{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.tl-right{}
+.tl-role{font-family:'Crimson Pro',serif;font-size:1.55rem;font-style:italic;color:var(--ink);margin-bottom:0.25rem;line-height:1.2;}
+.tl-org{font-size:0.82rem;letter-spacing:0.06em;color:var(--rust);font-weight:600;margin-bottom:0.25rem;opacity:0.8;}
+.tl-loc{font-size:0.8rem;color:var(--muted);margin-bottom:1rem;}
+.tl-pts{list-style:none;display:flex;flex-direction:column;gap:0.38rem;}
+.tl-pts li{font-size:0.97rem;color:var(--muted);padding-left:1.1rem;position:relative;line-height:1.65;}
+.tl-pts li::before{content:'—';position:absolute;left:0;color:var(--rust);}
+
+/* ── PUBLICATIONS ── */
+#publications{background:var(--sand);}
+.pub-list{display:flex;flex-direction:column;}
+.pub{display:grid;grid-template-columns:56px 1fr;gap:2rem;padding:2.5rem 0;border-top:1px solid var(--line);transition:background 0.18s;}
+.pub:last-child{border-bottom:1px solid var(--line);}
+.pub:hover{background:rgba(196,98,45,0.02);}
+.pub-n{font-family:'Crimson Pro',serif;font-size:2.4rem;font-weight:400;color:rgba(196,98,45,0.12);line-height:1;}
+.pub-venue{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;}
+.pub-badge{font-size:0.6rem;letter-spacing:0.1em;padding:0.1rem 0.45rem;background:var(--ink);color:var(--bg);}
+.pub-title{font-family:'Crimson Pro',serif;font-size:1.22rem;color:var(--ink);line-height:1.5;margin-bottom:0.4rem;}
+.pub-auth{font-size:0.88rem;color:var(--muted);line-height:1.55;}
+.pub-doi{font-size:0.68rem;letter-spacing:0.1em;color:var(--rust);text-decoration:none;margin-left:0.5rem;border-bottom:1px solid var(--lineh);transition:opacity 0.2s;}
+.pub-doi:hover{opacity:0.7;}
+
+/* ── SKILLS ── */
+#skills{background:var(--paper);}
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.sk-block{padding:2.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background 0.2s;}
+.sk-block:hover{background:var(--sand);}
+.sk-block:nth-child(3n){border-right:none;}
+.sk-block:nth-last-child(-n+3){border-bottom:none;}
+.sk-h{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);font-weight:600;margin-bottom:1.2rem;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.sk-tag{font-size:0.9rem;color:var(--muted);padding:0.28rem 0.7rem;border:1px solid var(--line);background:var(--bg);transition:all 0.18s;cursor:default;}
+.sk-tag:hover{color:var(--ink);border-color:var(--lineh);background:rgba(196,98,45,0.04);}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg);}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--line);}
+.proj{background:var(--bg);padding:3rem;transition:background 0.22s;position:relative;overflow:hidden;}
+.proj:hover{background:var(--sand);}
+.proj::after{content:'';position:absolute;bottom:0;left:3rem;right:3rem;height:1.5px;background:var(--rust);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.proj:hover::after{transform:scaleX(1);}
+.proj-i{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;}
+.proj-t{font-family:'Crimson Pro',serif;font-size:1.45rem;font-style:italic;color:var(--ink);margin-bottom:0.9rem;line-height:1.35;}
+.proj-d{font-size:0.97rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;}
+.proj-a{font-size:0.74rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--rust);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:0.5rem;transition:gap 0.2s;}
+.proj-a:hover{gap:0.9rem;}
+
+/* ── AWARDS ── */
+#awards{background:var(--sand);}
+.aw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+.aw-item{padding:2.5rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background 0.2s;position:relative;overflow:hidden;}
+.aw-item:hover{background:var(--paper);}
+.aw-item:nth-child(3n){border-right:none;}
+.aw-item:nth-last-child(-n+3){border-bottom:none;}
+.aw-yr{font-family:'Crimson Pro',serif;font-size:3.5rem;font-weight:400;color:rgba(196,98,45,0.1);line-height:1;margin-bottom:0.7rem;}
+.aw-t{font-size:0.97rem;font-weight:600;color:var(--ink);margin-bottom:0.25rem;line-height:1.4;}
+.aw-b{font-size:0.84rem;color:var(--muted);line-height:1.5;}
+
+/* ── CONTACT STRIP ── */
+.contact-strip{background:var(--ink);padding:5rem 0;}
+.cs-inner{max-width:1280px;margin:0 auto;padding:0 3rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;}
+.cs-title{font-family:'Crimson Pro',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-style:italic;font-weight:300;color:var(--bg);line-height:1.15;margin-bottom:1.5rem;}
+.cs-sub{font-size:1rem;color:rgba(250,247,242,0.45);line-height:1.8;font-weight:300;}
+.cs-links{display:flex;flex-direction:column;gap:0;}
+.cs-link{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;border-bottom:1px solid rgba(250,247,242,0.07);text-decoration:none;transition:all 0.2s;}
+.cs-link:first-child{border-top:1px solid rgba(250,247,242,0.07);}
+.cs-link:hover .cs-link-l{color:var(--rust2);}
+.cs-link:hover .cs-link-r{transform:translate(3px,-3px);color:var(--rust2);}
+.cs-link-l{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,247,242,0.5);font-weight:500;transition:color 0.2s;}
+.cs-link-r{font-size:0.9rem;color:rgba(250,247,242,0.75);font-weight:400;transition:all 0.2s;}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);border-top:1px solid rgba(250,247,242,0.06);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.ft-n{font-family:'Crimson Pro',serif;font-style:italic;font-size:1.3rem;color:rgba(250,247,242,0.35);}
+.ft-c{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,247,242,0.18);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:980px){
+  .hero-bottom{grid-template-columns:1fr;gap:2rem;}
+  .hero-links-col{align-items:flex-start;flex-direction:row;flex-wrap:wrap;}
+  .ab-grid{grid-template-columns:1fr;gap:3.5rem;}
+  .tl-item{grid-template-columns:1fr;gap:1.2rem;}
+  .sk-grid{grid-template-columns:1fr 1fr;}
+  .sk-block:nth-child(3n){border-right:1px solid var(--line);}
+  .sk-block:nth-child(2n){border-right:none;}
+  .sk-block:nth-last-child(-n+3){border-bottom:1px solid var(--line);}
+  .sk-block:nth-last-child(-n+2){border-bottom:none;}
+  .proj-grid{grid-template-columns:1fr;}
+  .aw-grid{grid-template-columns:1fr 1fr;}
+  .aw-item:nth-child(3n){border-right:1px solid var(--line);}
+  .aw-item:nth-child(2n){border-right:none;}
+  .aw-item:nth-last-child(-n+3){border-bottom:1px solid var(--line);}
+  .aw-item:nth-last-child(-n+2){border-bottom:none;}
+  .cs-inner{grid-template-columns:1fr;}
+  .nav-links,.nav-cta{display:none;}
+  .mob-btn{display:flex;}
+  section{padding:4rem 0;}
+  .nav-inner{padding:0 1.5rem;}
+  .wrap{padding:0 1.5rem;}
+  .hero-top,.hero-name-wrap,.hero-bottom{padding-left:1.5rem;padding-right:1.5rem;}
+  footer{padding:1.5rem;}
+  .cs-inner{padding:0 1.5rem;}
+}
+@media(max-width:580px){
+  .hero-name{font-size:clamp(2.8rem,12vw,4.5rem);}
+  .sk-grid{grid-template-columns:1fr;}
+  .aw-grid{grid-template-columns:1fr;}
+  .aw-item{border-right:none!important;}
+  .pub{grid-template-columns:1fr;}
+  .pub-n{display:none;}
+  .tl-left{flex-direction:row;align-items:center;gap:1.5rem;}
 }
 </style>
 </head>
 <body>
+<div id="cur"></div><div id="curR"></div>
 
 <nav>
-  <div class="nav-id"><span class="dot"></span>S.M.Sohel Rana</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#awards">Awards</a></li>
-  </ul>
-  <button class="hamburger" id="hbtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-inner">
+    <div class="nav-logo">S. M. Sohel Rana</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#publications">Research</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#awards">Awards</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="mailto:rana@unist.ac.kr" class="nav-cta">Contact</a>
+      <button class="mob-btn" id="mb"><span></span><span></span><span></span></button>
+    </div>
+  </div>
 </nav>
-<div class="mob-menu" id="mmenu">
-  <a href="#about">About</a>
-  <a href="#experience">Experience</a>
-  <a href="#skills">Skills</a>
-  <a href="#publications">Publications</a>
-  <a href="#projects">Projects</a>
-  <a href="#awards">Awards</a>
+<div class="mob-nav" id="mn">
+  <a href="#about">About</a><a href="#experience">Experience</a>
+  <a href="#publications">Research</a><a href="#skills">Skills</a>
+  <a href="#projects">Projects</a><a href="#awards">Awards</a>
 </div>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="topo">
-    <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" stroke="#7ec850" stroke-width="1">
-        <ellipse cx="420" cy="400" rx="80" ry="120"/>
-        <ellipse cx="420" cy="400" rx="130" ry="190"/>
-        <ellipse cx="420" cy="400" rx="185" ry="265"/>
-        <ellipse cx="420" cy="400" rx="245" ry="345"/>
-        <ellipse cx="420" cy="400" rx="310" ry="430"/>
-        <ellipse cx="420" cy="400" rx="380" ry="520"/>
-        <ellipse cx="250" cy="200" rx="60" ry="85"/>
-        <ellipse cx="250" cy="200" rx="100" ry="138"/>
-        <ellipse cx="250" cy="200" rx="145" ry="195"/>
-        <ellipse cx="530" cy="650" rx="50" ry="70"/>
-        <ellipse cx="530" cy="650" rx="90" ry="120"/>
-      </g>
+<!-- ── HERO ── -->
+<div class="hero" id="hero">
+  <div class="hero-bg-art">
+    <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle cx="20" cy="20" r="1" fill="rgba(196,98,45,0.12)"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dots)"/>
+      <path d="M 1100 50 Q 1300 200 1250 450 Q 1200 700 1050 800" fill="none" stroke="rgba(196,98,45,0.08)" stroke-width="1.5"/>
+      <path d="M 1150 0 Q 1380 180 1320 500 Q 1270 760 1100 900" fill="none" stroke="rgba(196,98,45,0.06)" stroke-width="1.5"/>
+      <path d="M 1050 100 Q 1220 300 1180 550 Q 1140 760 980 880" fill="none" stroke="rgba(196,98,45,0.05)" stroke-width="1"/>
+      <circle cx="1200" cy="420" r="280" fill="none" stroke="rgba(196,98,45,0.05)" stroke-width="1"/>
+      <circle cx="1200" cy="420" r="180" fill="none" stroke="rgba(196,98,45,0.05)" stroke-width="1"/>
     </svg>
   </div>
-  <div class="hero-inner">
-    <div class="hero-tag">// GeoAI · Remote Sensing · Disaster Management</div>
-    <h1 class="hero-name">S. M. Sohel <span>Rana</span></h1>
-    <p class="hero-sub">M.S. Environmental Science & Engineering · UNIST, South Korea</p>
-    <div class="hero-chips">
-      <span class="chip">Sentinel-1 SAR</span>
-      <span class="chip">Deep Learning</span>
-      <span class="chip">Wildfire Mapping</span>
-      <span class="chip">Google Earth Engine</span>
-      <span class="chip">Burn Severity</span>
-      <span class="chip">Climate Risk</span>
+  <div class="hero-top">
+    <div>
+      <div style="font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);font-weight:500;">Remote Sensing · GeoAI · Environmental Science</div>
     </div>
-    <div class="hero-btns">
-      <a href="mailto:rana@unist.ac.kr" class="btn btn-p">Get in Touch</a>
-      <a href="https://github.com/sohel-raana" target="_blank" class="btn btn-o">GitHub</a>
-      <a href="https://www.linkedin.com/in/smsohelrana" target="_blank" class="btn btn-o">LinkedIn</a>
+    <div class="hero-badge-group">
+      <div class="hero-pill">M.S. UNIST · 2025</div>
+      <div class="hero-location">📍 Cox's Bazar, Bangladesh</div>
     </div>
   </div>
-</section>
+  <div class="hero-name-wrap">
+    <h1 class="hero-name">S. M. Sohel <em>Rana</em></h1>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">Mapping wildfires, floods, and land change through deep learning and satellite imagery — bridging GeoAI research with real-world humanitarian impact.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-n">4</div><div class="hstat-l">Publications</div></div>
+      <div class="hstat"><div class="hstat-n">3</div><div class="hstat-l">Research Roles</div></div>
+      <div class="hstat"><div class="hstat-n">6</div><div class="hstat-l">Awards</div></div>
+    </div>
+    <div class="hero-links-col">
+      <a href="mailto:rana@unist.ac.kr" class="hlink">Email <span>↗</span></a>
+      <a href="https://github.com/sohel-raana" target="_blank" class="hlink">GitHub <span>↗</span></a>
+      <a href="https://www.linkedin.com/in/smsohelrana" target="_blank" class="hlink">LinkedIn <span>↗</span></a>
+      <a href="https://scholar.google.com" target="_blank" class="hlink">Scholar <span>↗</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track">
+    <span class="mq-item">Remote Sensing</span><span class="mq-dot">◆</span>
+    <span class="mq-item">GeoAI</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Burned Area Mapping</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Deep Learning</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Sentinel-1 SAR</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Disaster Management</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Flood Risk</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Climate Risk</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Mamba Architecture</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Google Earth Engine</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Remote Sensing</span><span class="mq-dot">◆</span>
+    <span class="mq-item">GeoAI</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Burned Area Mapping</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Deep Learning</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Sentinel-1 SAR</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Disaster Management</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Flood Risk</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Climate Risk</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Mamba Architecture</span><span class="mq-dot">◆</span>
+    <span class="mq-item">Google Earth Engine</span><span class="mq-dot">◆</span>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="container">
-    <div class="sec-pre">Profile</div>
-    <h2 class="sec-title">About</h2>
-    <div class="about-wrap">
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">01</span><h2 class="sec-t">About</h2><div class="sec-line"></div></div>
+    <div class="ab-grid">
       <div>
-        <div class="about-body">
-          <p>I am a remote sensing researcher with a background in environmental science, currently working as a Monitoring & Data Analysis Officer at NGO Forum for Public Health in Cox's Bazar, Bangladesh, supporting FAO-funded impact assessments and field surveys.</p>
-          <p>My graduate research at UNIST's Intelligent Remote Sensing & GeoAI Lab focused on deep learning architectures for post-wildfire burned area mapping using Sentinel-1 SAR and Landsat data — including novel Mamba-based Siamese networks for burn severity estimation.</p>
-          <p>Previously a Junior Research Fellow at SPARRSO, I developed flood risk and inundation maps using Multi-Criteria Decision Methods and Google Earth Engine. I am driven by applying satellite intelligence to real-world disaster management and climate risk challenges.</p>
+        <div class="ab-body">
+          <p>I am a <strong>remote sensing researcher</strong> and environmental scientist who combines satellite data with deep learning to address wildfires, flood risk, and climate-driven land change.</p>
+          <p>My graduate research at <strong>UNIST's Intelligent Remote Sensing & GeoAI Lab</strong> produced novel Mamba-based Siamese networks for burn severity estimation from Landsat imagery, and explored U-Net architectures for SAR-based burned area detection using Sentinel-1 data.</p>
+          <p>Currently, I serve as <strong>Monitoring & Data Analysis Officer</strong> at NGO Forum for Public Health in Cox's Bazar — translating geospatial skills into measurable humanitarian outcomes for FAO-funded projects supporting Rohingya communities.</p>
         </div>
-        <div class="hero-contact" style="margin-top:1.8rem;">
-          <div class="hc-row"><span class="hc-label">EMAIL</span><span class="hc-val"><a href="mailto:rana@unist.ac.kr">rana@unist.ac.kr</a> · <a href="mailto:sohel.env46@gmail.com">sohel.env46@gmail.com</a></span></div>
-          <div class="hc-row"><span class="hc-label">PHONE</span><span class="hc-val">+8801811799363</span></div>
-          <div class="hc-row"><span class="hc-label">LOCATION</span><span class="hc-val">Cox's Bazar / Dhaka, Bangladesh</span></div>
-          <div class="hc-row"><span class="hc-label">SCHOLAR</span><span class="hc-val"><a href="https://scholar.google.com" target="_blank">Google Scholar →</a></span></div>
+        <div class="ab-contacts">
+          <div class="ct"><span class="ct-k">Email</span><span class="ct-v"><a href="mailto:rana@unist.ac.kr">rana@unist.ac.kr</a> &nbsp;·&nbsp; <a href="mailto:sohel.env46@gmail.com">sohel.env46@gmail.com</a></span></div>
+          <div class="ct"><span class="ct-k">Phone</span><span class="ct-v">+880 181 179 9363</span></div>
+          <div class="ct"><span class="ct-k">Location</span><span class="ct-v">Cox's Bazar / Dhaka, Bangladesh</span></div>
+          <div class="ct"><span class="ct-k">GitHub</span><span class="ct-v"><a href="https://github.com/sohel-raana" target="_blank">github.com/sohel-raana</a></span></div>
+          <div class="ct"><span class="ct-k">LinkedIn</span><span class="ct-v"><a href="https://www.linkedin.com/in/smsohelrana" target="_blank">linkedin.com/in/smsohelrana</a></span></div>
         </div>
       </div>
       <div>
-        <div class="ri-head">Research Interests</div>
-        <div class="ri-wrap">
-          <span class="ri-item">Remote Sensing of Vegetation</span>
-          <span class="ri-item">GeoAI</span>
-          <span class="ri-item">Disaster Management</span>
-          <span class="ri-item">Climate Risk</span>
-          <span class="ri-item">Wildfire Mapping</span>
-          <span class="ri-item">SAR Analysis</span>
-          <span class="ri-item">Burn Severity</span>
-          <span class="ri-item">Flood Risk</span>
-          <span class="ri-item">Deep Learning</span>
-          <span class="ri-item">GPP Estimation</span>
-          <span class="ri-item">Earth Observation</span>
+        <div class="ri-lbl">Research Interests</div>
+        <div class="ri-list">
+          <div class="ri-row"><span class="ri-row-l">Remote Sensing of Vegetation</span><span class="ri-row-r">Core</span></div>
+          <div class="ri-row"><span class="ri-row-l">GeoAI & Deep Learning</span><span class="ri-row-r">Core</span></div>
+          <div class="ri-row"><span class="ri-row-l">Wildfire & Burn Severity Mapping</span><span class="ri-row-r">Thesis</span></div>
+          <div class="ri-row"><span class="ri-row-l">SAR Image Analysis</span><span class="ri-row-r">Technical</span></div>
+          <div class="ri-row"><span class="ri-row-l">Flood Risk Mapping</span><span class="ri-row-r">Applied</span></div>
+          <div class="ri-row"><span class="ri-row-l">Disaster Management</span><span class="ri-row-r">Applied</span></div>
+          <div class="ri-row"><span class="ri-row-l">Climate Risk Assessment</span><span class="ri-row-r">Applied</span></div>
+          <div class="ri-row"><span class="ri-row-l">GPP & Ecosystem Monitoring</span><span class="ri-row-r">Technical</span></div>
+          <div class="ri-row"><span class="ri-row-l">Air Quality via Satellite</span><span class="ri-row-r">Technical</span></div>
         </div>
       </div>
     </div>
@@ -294,205 +372,210 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 2.
 
 <!-- EXPERIENCE & EDUCATION -->
 <section id="experience">
-  <div class="container">
-    <div class="sec-pre">Career & Study</div>
-    <h2 class="sec-title">Experience & Education</h2>
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">02</span><h2 class="sec-t">Experience & Education</h2><div class="sec-line"></div></div>
     <div class="tl">
 
+      <!-- NGO Forum -->
       <div class="tl-item">
-        <div class="tl-date">Nov 2025<br>Present</div>
-        <div class="tl-body">
+        <div class="tl-left">
+          <div class="tl-logo-wrap">
+            <img src="https://ngoforum.net/wp-content/uploads/2021/07/logo.png"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="NGO Forum logo">
+            <div class="logo-fallback" style="display:none;">NGO</div>
+          </div>
+          <div class="tl-meta">
+            <div class="tl-yr">Nov 2025 – Present</div>
+            <div class="tl-kind">Work</div>
+          </div>
+        </div>
+        <div class="tl-right">
           <div class="tl-role">Monitoring & Data Analysis Officer</div>
           <div class="tl-org">NGO Forum for Public Health</div>
           <div class="tl-loc">Cox's Bazar, Bangladesh</div>
-          <ul class="tl-list">
-            <li>Impact assessment survey, PDM and AIMA data collection for FAO projects.</li>
-            <li>Field plan development, sample distribution and KoBo Toolbox data collection.</li>
-            <li>Monitoring field surveys and preparing data quality reports.</li>
+          <ul class="tl-pts">
+            <li>FAO project impact assessment, PDM & AIMA surveys via KoBo Toolbox.</li>
+            <li>Field plan development, sample design and data quality monitoring.</li>
           </ul>
         </div>
       </div>
 
+      <!-- UNIST RA -->
       <div class="tl-item">
-        <div class="tl-date">Sep 2023<br>Aug 2025</div>
-        <div class="tl-body">
-          <div class="tl-role">Research Assistant</div>
+        <div class="tl-left">
+          <div class="tl-logo-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/UNIST_logo.svg/320px-UNIST_logo.svg.png"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="UNIST logo">
+            <div class="logo-fallback" style="display:none;">UNIST</div>
+          </div>
+          <div class="tl-meta">
+            <div class="tl-yr">Aug 2023 – Aug 2025</div>
+            <div class="tl-kind">Research · M.S.</div>
+          </div>
+        </div>
+        <div class="tl-right">
+          <div class="tl-role">Research Assistant + M.S. Environmental Science</div>
           <div class="tl-org">Intelligent Remote Sensing & GeoAI Lab · UNIST</div>
-          <div class="tl-loc">Ulsan, Republic of Korea</div>
-          <ul class="tl-list">
-            <li>Sentinel-1 SAR + U-Net architectures for post-wildfire burned area mapping.</li>
-            <li>Mamba-based deep learning for burn severity from Landsat imagery.</li>
+          <div class="tl-loc">Ulsan, South Korea &nbsp;·&nbsp; CGPA 3.81 / 4.3</div>
+          <ul class="tl-pts">
+            <li>Sentinel-1 SAR + U-shaped deep learning for post-wildfire burned area mapping.</li>
+            <li>Mamba-based Siamese network for burn severity estimation from Landsat imagery.</li>
             <li>MODIS-to-Landsat image translation experiments for GPP estimation.</li>
-            <li>Field collection of LAI using LAI-2200C and DHP camera.</li>
+            <li>Field LAI data collection using LAI-2200C and DHP camera.</li>
           </ul>
         </div>
       </div>
 
+      <!-- SPARRSO -->
       <div class="tl-item">
-        <div class="tl-date">Nov 2022<br>Jun 2023</div>
-        <div class="tl-body">
+        <div class="tl-left">
+          <div class="tl-logo-wrap">
+            <img src="https://sparrso.gov.bd/images/sparrso-logo.png"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="SPARRSO logo">
+            <div class="logo-fallback" style="display:none;">SPARRSO</div>
+          </div>
+          <div class="tl-meta">
+            <div class="tl-yr">Nov 2022 – Jun 2023</div>
+            <div class="tl-kind">Research</div>
+          </div>
+        </div>
+        <div class="tl-right">
           <div class="tl-role">Junior Research Fellow</div>
-          <div class="tl-org">Bangladesh Space Research and Remote Sensing Organization (SPARRSO)</div>
+          <div class="tl-org">Bangladesh Space Research & Remote Sensing Organization (SPARRSO)</div>
           <div class="tl-loc">Agargaon, Dhaka, Bangladesh</div>
-          <ul class="tl-list">
-            <li>Flood Risk Maps via Analytical Hierarchy Process (AHP).</li>
-            <li>Flood Inundation Maps for flood-prone regions using Google Earth Engine.</li>
-            <li>Published research on Rangpur Division flood risks.</li>
-            <li>Mentored interns on Remote Sensing and GIS fundamentals.</li>
+          <ul class="tl-pts">
+            <li>Flood Risk Maps using Analytical Hierarchy Process (AHP).</li>
+            <li>Flood Inundation Maps for at-risk regions via Google Earth Engine.</li>
+            <li>Published research on Rangpur Division flood risks; mentored interns in RS/GIS.</li>
           </ul>
         </div>
       </div>
 
-      <!-- EDUCATION -->
+      <!-- JU MS -->
       <div class="tl-item">
-        <div class="tl-date">Aug 2023<br>Aug 2025</div>
-        <div class="tl-body">
-          <div class="tl-role">M.S. — Environmental Science & Engineering</div>
-          <div class="tl-org">Ulsan National Institute of Science and Technology (UNIST)</div>
-          <div class="tl-loc">Ulsan, South Korea · CGPA: 3.81 / 4.3</div>
+        <div class="tl-left">
+          <div class="tl-logo-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/en/2/26/Jahangirnagar_University_logo.svg"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="Jahangirnagar University logo">
+            <div class="logo-fallback" style="display:none;">JU</div>
+          </div>
+          <div class="tl-meta">
+            <div class="tl-yr">Jun 2022 – Dec 2023</div>
+            <div class="tl-kind">Education</div>
+          </div>
         </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-date">Jun 2022<br>Dec 2023</div>
-        <div class="tl-body">
+        <div class="tl-right">
           <div class="tl-role">MS — Environmental Sciences</div>
           <div class="tl-org">Jahangirnagar University</div>
-          <div class="tl-loc">Savar, Dhaka, Bangladesh · CGPA: 3.75 / 4.0</div>
+          <div class="tl-loc">Savar, Dhaka, Bangladesh &nbsp;·&nbsp; CGPA 3.75 / 4.0</div>
         </div>
       </div>
 
+      <!-- JU BSc -->
       <div class="tl-item">
-        <div class="tl-date">Mar 2017<br>Apr 2022</div>
-        <div class="tl-body">
+        <div class="tl-left">
+          <div class="tl-logo-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/en/2/26/Jahangirnagar_University_logo.svg"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+              alt="Jahangirnagar University logo">
+            <div class="logo-fallback" style="display:none;">JU</div>
+          </div>
+          <div class="tl-meta">
+            <div class="tl-yr">Mar 2017 – Apr 2022</div>
+            <div class="tl-kind">Education</div>
+          </div>
+        </div>
+        <div class="tl-right">
           <div class="tl-role">B.Sc. — Environmental Sciences</div>
           <div class="tl-org">Jahangirnagar University</div>
-          <div class="tl-loc">Savar, Dhaka, Bangladesh · CGPA: 3.61 / 4.0</div>
+          <div class="tl-loc">Savar, Dhaka, Bangladesh &nbsp;·&nbsp; CGPA 3.61 / 4.0</div>
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="sec-pre">Technical</div>
-    <h2 class="sec-title">Skills</h2>
-    <div class="sk-grid">
-      <div class="sk-card">
-        <div class="sk-head">Geospatial Tools</div>
-        <div class="sk-pills">
-          <span class="sk-pill">ArcGIS</span><span class="sk-pill">QGIS</span>
-          <span class="sk-pill">Google Earth Engine</span><span class="sk-pill">GDAL</span>
-        </div>
-      </div>
-      <div class="sk-card">
-        <div class="sk-head">Programming</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Python</span><span class="sk-pill">JavaScript (GEE)</span>
-        </div>
-      </div>
-      <div class="sk-card">
-        <div class="sk-head">Machine Learning</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Deep Learning</span><span class="sk-pill">U-Net</span>
-          <span class="sk-pill">Mamba / SSM</span><span class="sk-pill">Siamese Networks</span>
-          <span class="sk-pill">Image Translation</span>
-        </div>
-      </div>
-      <div class="sk-card">
-        <div class="sk-head">EO Sensors & Data</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Sentinel-1 SAR</span><span class="sk-pill">Landsat</span>
-          <span class="sk-pill">MODIS</span><span class="sk-pill">Sentinel-5P</span>
-        </div>
-      </div>
-      <div class="sk-card">
-        <div class="sk-head">Applications</div>
-        <div class="sk-pills">
-          <span class="sk-pill">Burned Area Mapping</span><span class="sk-pill">Flood Risk</span>
-          <span class="sk-pill">GPP Estimation</span><span class="sk-pill">LAI Field Sampling</span>
-          <span class="sk-pill">Air Quality (NO₂)</span>
-        </div>
-      </div>
-      <div class="sk-card">
-        <div class="sk-head">Field & Survey</div>
-        <div class="sk-pills">
-          <span class="sk-pill">KoBo Toolbox</span><span class="sk-pill">LAI-2200C</span>
-          <span class="sk-pill">DHP Camera</span><span class="sk-pill">PDM / AIMA</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- PUBLICATIONS -->
 <section id="publications">
-  <div class="container">
-    <div class="sec-pre">Research Output</div>
-    <h2 class="sec-title">Publications</h2>
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">03</span><h2 class="sec-t">Publications</h2><div class="sec-line"></div></div>
     <div class="pub-list">
-
       <div class="pub">
-        <div class="pub-meta">
-          <span class="pub-journal">IEEE TGRS · 2026</span>
-          <span class="pub-badge">Under Review</span>
-        </div>
-        <div class="pub-title">B-Mamba: Burn severity mapping with a Mamba-based Siamese network using large-scale Landsat imagery</div>
-        <div class="pub-authors">Rana, S. M. S., Sung, T., Ruzcko, R. T., Im, J., Kang, Y., Lee, J. · Manuscript ID: TGRS-2026-01479</div>
-      </div>
-
-      <div class="pub">
-        <div class="pub-meta">
-          <span class="pub-journal">Int. J. Applied Earth Observation and Geoinformation · 2026</span>
-        </div>
-        <div class="pub-title">Exploring the impacts of dual-polarized vegetation indices and U-shaped deep learning architectures on SAR-based burned area mapping</div>
-        <div class="pub-authors">Rana, S. M. S., Lee, J., Kang, Y., Im, J.
-          <a href="https://doi.org/10.1016/j.jag.2026.105141" target="_blank" class="pub-link">DOI →</a>
+        <div class="pub-n">01</div>
+        <div>
+          <div class="pub-venue">IEEE TGRS · 2026 <span class="pub-badge">Under Review</span></div>
+          <div class="pub-title">B-Mamba: Burn severity mapping with a Mamba-based Siamese network using large-scale Landsat imagery</div>
+          <div class="pub-auth">Rana, S. M. S., Sung, T., Ruzcko, R. T., Im, J., Kang, Y., Lee, J. · Manuscript ID: TGRS-2026-01479</div>
         </div>
       </div>
-
       <div class="pub">
-        <div class="pub-meta">
-          <span class="pub-journal">Natural Hazards Research · 2024</span>
-        </div>
-        <div class="pub-title">Flood risk mapping of the flood-prone Rangpur division of Bangladesh using remote sensing and multi-criteria analysis</div>
-        <div class="pub-authors">Rana, S. M. S., Habib, S. A., Sharifee, M. N. H., Sultana, N., & Rahman, S. H.
-          <a href="https://doi.org/10.1016/j.nhres.2023.09.012" target="_blank" class="pub-link">DOI →</a>
+        <div class="pub-n">02</div>
+        <div>
+          <div class="pub-venue">Int. J. Applied Earth Observation · 2026</div>
+          <div class="pub-title">Exploring the impacts of dual-polarized vegetation indices and U-shaped deep learning architectures on SAR-based burned area mapping</div>
+          <div class="pub-auth">Rana, S. M. S., Lee, J., Kang, Y., Im, J. <a href="https://doi.org/10.1016/j.jag.2026.105141" target="_blank" class="pub-doi">DOI →</a></div>
         </div>
       </div>
-
       <div class="pub">
-        <div class="pub-meta">
-          <span class="pub-journal">Engineering Proceedings · 2021</span>
-        </div>
-        <div class="pub-title">Analysis of NO₂ pollution over Bangladesh between the two COVID-19 caused lockdowns in 2020 and 2021 using Sentinel-5P products</div>
-        <div class="pub-authors">Rana, S. M. S., Ahmed, S. M. F., & Akter, H.
-          <a href="https://doi.org/10.3390/ASEC2021-11139" target="_blank" class="pub-link">DOI →</a>
+        <div class="pub-n">03</div>
+        <div>
+          <div class="pub-venue">Natural Hazards Research · 2024</div>
+          <div class="pub-title">Flood risk mapping of the flood-prone Rangpur division of Bangladesh using remote sensing and multi-criteria analysis</div>
+          <div class="pub-auth">Rana, S. M. S., Habib, S. A., Sharifee, M. N. H., Sultana, N., Rahman, S. H. <a href="https://doi.org/10.1016/j.nhres.2023.09.012" target="_blank" class="pub-doi">DOI →</a></div>
         </div>
       </div>
+      <div class="pub">
+        <div class="pub-n">04</div>
+        <div>
+          <div class="pub-venue">Engineering Proceedings · 2021</div>
+          <div class="pub-title">Analysis of NO₂ pollution over Bangladesh between the two COVID-19 caused lockdowns in 2020 and 2021 using Sentinel-5P products</div>
+          <div class="pub-auth">Rana, S. M. S., Ahmed, S. M. F., Akter, H. <a href="https://doi.org/10.3390/ASEC2021-11139" target="_blank" class="pub-doi">DOI →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">04</span><h2 class="sec-t">Skills</h2><div class="sec-line"></div></div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 3rem;">
+    <div class="sk-grid" style="border:1px solid var(--line);">
+      <div class="sk-block"><div class="sk-h">Geospatial Platforms</div><div class="sk-tags"><span class="sk-tag">ArcGIS</span><span class="sk-tag">QGIS</span><span class="sk-tag">Google Earth Engine</span><span class="sk-tag">GDAL</span></div></div>
+      <div class="sk-block"><div class="sk-h">Programming</div><div class="sk-tags"><span class="sk-tag">Python</span><span class="sk-tag">JavaScript (GEE)</span></div></div>
+      <div class="sk-block"><div class="sk-h">Deep Learning</div><div class="sk-tags"><span class="sk-tag">U-Net / U-shaped</span><span class="sk-tag">Mamba / SSM</span><span class="sk-tag">Siamese Networks</span><span class="sk-tag">Image Translation</span></div></div>
+      <div class="sk-block"><div class="sk-h">EO Sensors</div><div class="sk-tags"><span class="sk-tag">Sentinel-1 SAR</span><span class="sk-tag">Landsat</span><span class="sk-tag">MODIS</span><span class="sk-tag">Sentinel-5P</span></div></div>
+      <div class="sk-block"><div class="sk-h">Applications</div><div class="sk-tags"><span class="sk-tag">Burned Area Mapping</span><span class="sk-tag">Flood Risk</span><span class="sk-tag">GPP Estimation</span><span class="sk-tag">LAI Sampling</span><span class="sk-tag">Air Quality</span></div></div>
+      <div class="sk-block"><div class="sk-h">Field & Survey</div><div class="sk-tags"><span class="sk-tag">KoBo Toolbox</span><span class="sk-tag">LAI-2200C</span><span class="sk-tag">DHP Camera</span><span class="sk-tag">PDM / AIMA</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="container">
-    <div class="sec-pre">Code</div>
-    <h2 class="sec-title">Open-Source Projects</h2>
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">05</span><h2 class="sec-t">Open-Source Projects</h2><div class="sec-line"></div></div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 3rem;">
     <div class="proj-grid">
-      <div class="proj-card">
-        <div class="proj-title">Active Wildfire Detection via GK-2A Geostationary Satellite</div>
-        <div class="proj-desc">AI-based detection of active forest fires using GK-2A geostationary satellite imagery with deep learning algorithms.</div>
-        <a href="https://github.com/sohel-raana/Active-Forest-Fire-Detection-using-GK-2A" target="_blank" class="proj-link">github.com → Active-Forest-Fire-Detection</a>
+      <div class="proj">
+        <div class="proj-i">01 / Open Source · GitHub</div>
+        <div class="proj-t">Active Wildfire Detection via GK-2A Geostationary Satellite</div>
+        <div class="proj-d">AI-based detection of active forest fires using GK-2A geostationary satellite imagery, combining deep learning with real-time Earth observation data streams.</div>
+        <a href="https://github.com/sohel-raana/Active-Forest-Fire-Detection-using-GK-2A" target="_blank" class="proj-a">View on GitHub →</a>
       </div>
-      <div class="proj-card">
-        <div class="proj-title">Random Forest Urban Expansion Analysis</div>
-        <div class="proj-desc">Exploring changes in land cover and nighttime light data focusing on urban expansion in Suwon and Hwaseong, South Korea.</div>
-        <a href="https://github.com/sohel-raana/Random-Forest-Based-Urban-Expansion-Analysis" target="_blank" class="proj-link">github.com → Urban-Expansion-Analysis</a>
+      <div class="proj">
+        <div class="proj-i">02 / Open Source · GitHub</div>
+        <div class="proj-t">Random Forest Urban Expansion Analysis</div>
+        <div class="proj-d">Land cover change and nighttime light analysis through Random Forest classification, examining urban growth dynamics in Suwon and Hwaseong, South Korea.</div>
+        <a href="https://github.com/sohel-raana/Random-Forest-Based-Urban-Expansion-Analysis" target="_blank" class="proj-a">View on GitHub →</a>
       </div>
     </div>
   </div>
@@ -500,51 +583,53 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:1.5rem 2.
 
 <!-- AWARDS -->
 <section id="awards">
-  <div class="container">
-    <div class="sec-pre">Recognition</div>
-    <h2 class="sec-title">Awards & Scholarships</h2>
-    <div class="aw-grid">
-      <div class="aw-card">
-        <div class="aw-year">2025</div>
-        <div class="aw-title">GRSS Travel Grant</div>
-        <div class="aw-body">IEEE Geoscience and Remote Sensing Society (GRSS)</div>
-      </div>
-      <div class="aw-card">
-        <div class="aw-year">2023</div>
-        <div class="aw-title">UNIST Scholarship</div>
-        <div class="aw-body">Ulsan National Institute of Science and Technology</div>
-      </div>
-      <div class="aw-card">
-        <div class="aw-year">2022</div>
-        <div class="aw-title">SPARRSO Research Fellowship</div>
-        <div class="aw-body">Bangladesh Space Research and Remote Sensing Organization</div>
-      </div>
-      <div class="aw-card">
-        <div class="aw-year">2021</div>
-        <div class="aw-title">Full Fund — XV World Forestry Congress</div>
-        <div class="aw-body">Korean Forest Service (KFS) & Food and Agricultural Organization (FAO)</div>
-      </div>
-      <div class="aw-card">
-        <div class="aw-year">2020</div>
-        <div class="aw-title">Undergraduate Government Scholarship</div>
-        <div class="aw-body">University Grant Commission (UGC) — General Category</div>
-      </div>
-      <div class="aw-card">
-        <div class="aw-year">2017–2019</div>
-        <div class="aw-title">Undergraduate Merit Scholarship</div>
-        <div class="aw-body">Jahangirnagar University</div>
-      </div>
+  <div class="wrap">
+    <div class="sec-hd"><span class="sec-n">06</span><h2 class="sec-t">Awards & Scholarships</h2><div class="sec-line"></div></div>
+    <div class="aw-grid" style="border:1px solid var(--line);">
+      <div class="aw-item"><div class="aw-yr">2025</div><div class="aw-t">GRSS Travel Grant</div><div class="aw-b">IEEE Geoscience and Remote Sensing Society</div></div>
+      <div class="aw-item"><div class="aw-yr">2023</div><div class="aw-t">UNIST Scholarship</div><div class="aw-b">Ulsan National Institute of Science and Technology</div></div>
+      <div class="aw-item"><div class="aw-yr">2022</div><div class="aw-t">SPARRSO Research Fellowship</div><div class="aw-b">Bangladesh Space Research & Remote Sensing Organization</div></div>
+      <div class="aw-item"><div class="aw-yr">2021</div><div class="aw-t">World Forestry Congress — Full Fund</div><div class="aw-b">Korean Forest Service (KFS) & FAO</div></div>
+      <div class="aw-item"><div class="aw-yr">2020</div><div class="aw-t">Government Scholarship</div><div class="aw-b">University Grant Commission (UGC)</div></div>
+      <div class="aw-item"><div class="aw-yr">2017–19</div><div class="aw-t">Merit Scholarship ×3</div><div class="aw-b">Jahangirnagar University</div></div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 · S. M. SOHEL RANA · DHAKA, BANGLADESH</footer>
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="cs-inner">
+    <div>
+      <div class="cs-title">Let's work<br>together.</div>
+      <p class="cs-sub">Open to research collaborations, consulting projects, and opportunities in remote sensing, GeoAI, and environmental data science.</p>
+    </div>
+    <div class="cs-links">
+      <a href="mailto:rana@unist.ac.kr" class="cs-link"><span class="cs-link-l">Primary Email</span><span class="cs-link-r">rana@unist.ac.kr</span></a>
+      <a href="mailto:sohel.env46@gmail.com" class="cs-link"><span class="cs-link-l">Personal Email</span><span class="cs-link-r">sohel.env46@gmail.com</span></a>
+      <a href="https://github.com/sohel-raana" target="_blank" class="cs-link"><span class="cs-link-l">GitHub</span><span class="cs-link-r">github.com/sohel-raana</span></a>
+      <a href="https://www.linkedin.com/in/smsohelrana" target="_blank" class="cs-link"><span class="cs-link-l">LinkedIn</span><span class="cs-link-r">linkedin.com/in/smsohelrana</span></a>
+      <a href="tel:+8801811799363" class="cs-link"><span class="cs-link-l">Phone</span><span class="cs-link-r">+880 181 179 9363</span></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-n">S. M. Sohel Rana</div>
+  <div class="ft-c">© 2026 · Dhaka, Bangladesh</div>
+</footer>
 
 <script>
-// Hamburger
-var hbtn=document.getElementById('hbtn'),mm=document.getElementById('mmenu');
-hbtn.addEventListener('click',function(){hbtn.classList.toggle('open');mm.classList.toggle('open');});
-mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){hbtn.classList.remove('open');mm.classList.remove('open');});});
+// Cursor
+var c=document.getElementById('cur'),r=document.getElementById('curR');
+document.addEventListener('mousemove',function(e){
+  c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';
+  r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';
+});
+
+// Mobile nav
+var mb=document.getElementById('mb'),mn=document.getElementById('mn');
+mb.addEventListener('click',function(){mb.classList.toggle('o');mn.classList.toggle('o');});
+mn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mb.classList.remove('o');mn.classList.remove('o');});});
 </script>
 </body>
 </html>
