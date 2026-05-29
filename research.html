@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — S. M. Sohel Rana</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#ffffff;--off:#f8f9fb;--light:#eef0f5;--border:#e2e5ec;
+  --ink:#0d1117;--mid:#5a6070;--faint:#9aa0ae;
+  --accent:#1a6b4a;--accent2:#2d9e6f;--accent-light:rgba(26,107,74,0.07);--accent-mid:rgba(26,107,74,0.15);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);overflow-x:hidden;}
+#cur{position:fixed;width:6px;height:6px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#curR{position:fixed;width:28px;height:28px;border:1.5px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.35;transition:left 0.12s ease,top 0.12s ease;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(255,255,255,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1300px;margin:0 auto;padding:0 2.5rem;height:60px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--ink);text-decoration:none;}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links a{font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);text-decoration:none;font-weight:500;padding:0.5rem 1rem;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-1px;left:1rem;right:1rem;height:2px;background:var(--accent);transform:scaleX(0);transition:transform 0.2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+.nav-links a.active{color:var(--ink);}
+.nav-cta{background:var(--accent);color:white;padding:0.5rem 1.3rem;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;text-decoration:none;border-radius:2px;transition:background 0.2s;}
+.nav-cta:hover{background:var(--accent2);}
+.mob-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px;}
+.mob-btn span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all 0.3s;}
+.mob-btn.o span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mob-btn.o span:nth-child(2){opacity:0;}
+.mob-btn.o span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-nav{display:none;position:fixed;inset:0;background:var(--white);z-index:490;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+.mob-nav.o{display:flex;}
+.mob-nav a{font-family:'DM Serif Display',serif;font-size:2rem;font-style:italic;color:var(--ink);text-decoration:none;}
+.mob-nav a:hover{color:var(--accent);}
+.wrap{max-width:1300px;margin:0 auto;padding:0 2.5rem;}
+
+/* PAGE HERO */
+.page-hero{padding:9rem 0 4rem;background:var(--off);border-bottom:1px solid var(--border);}
+.ph-eyebrow{font-size:0.7rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem;}
+.ph-title{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--ink);line-height:1.1;}
+.ph-title em{font-style:italic;color:var(--accent);}
+.ph-sub{font-size:1rem;color:var(--mid);margin-top:1rem;max-width:560px;line-height:1.7;font-weight:300;}
+
+/* TABS */
+.tab-bar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:60px;z-index:100;}
+.tab-inner{max-width:1300px;margin:0 auto;padding:0 2.5rem;display:flex;gap:0;}
+.tab-btn{font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);font-weight:500;padding:1rem 1.2rem;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+.tab-btn:hover{color:var(--ink);}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+/* CONTENT */
+.research-page{padding:5rem 0 7rem;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+.sec-label{font-size:0.68rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:2rem;opacity:0.8;}
+
+/* PUBLICATION CARDS */
+.pub-list{display:flex;flex-direction:column;}
+.pub-card{display:grid;grid-template-columns:64px 1fr auto;gap:2rem;padding:2.5rem 0;border-top:1px solid var(--border);align-items:start;transition:background 0.18s;}
+.pub-card:last-child{border-bottom:1px solid var(--border);}
+.pub-card:hover{background:rgba(26,107,74,0.015);}
+.pub-n{font-family:'DM Serif Display',serif;font-size:2.2rem;color:rgba(26,107,74,0.1);line-height:1;}
+.pub-body{}
+.pub-venue{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;}
+.pub-badge{font-size:0.6rem;letter-spacing:0.08em;padding:0.15rem 0.55rem;background:var(--ink);color:white;border-radius:2px;}
+.pub-badge.review{background:#b45309;}
+.pub-badge.conf{background:#1b4f8a;}
+.pub-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--ink);line-height:1.5;margin-bottom:0.5rem;}
+.pub-auth{font-size:0.88rem;color:var(--mid);line-height:1.6;}
+.pub-doi{font-size:0.68rem;letter-spacing:0.1em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-mid);transition:opacity 0.2s;margin-left:0.4rem;}
+.pub-doi:hover{opacity:0.7;}
+.pub-actions{display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;min-width:100px;}
+.btn-abstract{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;color:var(--accent);border:1.5px solid var(--accent-mid);background:transparent;padding:0.4rem 1rem;border-radius:2px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-abstract:hover{background:var(--accent);color:white;border-color:var(--accent);}
+.btn-doi-link{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;color:var(--faint);text-decoration:none;padding:0.3rem 0.8rem;border:1px solid var(--border);border-radius:2px;transition:all 0.2s;text-align:center;}
+.btn-doi-link:hover{color:var(--accent);border-color:var(--accent-mid);}
+
+/* PROJECTS SECTION */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;}
+.proj-card{background:var(--off);border:1px solid var(--border);padding:2.5rem;border-radius:4px;position:relative;overflow:hidden;transition:all 0.25s;}
+.proj-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.proj-card:hover{border-color:var(--accent-mid);box-shadow:0 8px 32px rgba(26,107,74,0.07);}
+.proj-card:hover::after{transform:scaleX(1);}
+.proj-idx{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--faint);margin-bottom:1.2rem;}
+.proj-title{font-family:'DM Serif Display',serif;font-size:1.3rem;font-style:italic;color:var(--ink);margin-bottom:0.8rem;line-height:1.35;}
+.proj-desc{font-size:0.95rem;color:var(--mid);line-height:1.75;margin-bottom:2rem;}
+.proj-link{font-size:0.74rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:0.5rem;transition:gap 0.2s;}
+.proj-link:hover{gap:0.9rem;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(13,17,23,0.6);backdrop-filter:blur(6px);z-index:800;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;padding:2rem;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--white);max-width:700px;width:100%;border-radius:8px;padding:3rem;position:relative;transform:translateY(20px) scale(0.97);transition:transform 0.25s;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,0.2);}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:1.5rem;right:1.5rem;width:32px;height:32px;border:1px solid var(--border);background:none;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--mid);transition:all 0.2s;}
+.modal-close:hover{background:var(--off);color:var(--ink);}
+.modal-journal{font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.8rem;}
+.modal-title{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--ink);line-height:1.45;margin-bottom:1rem;}
+.modal-auth{font-size:0.88rem;color:var(--mid);margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.modal-abs-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.8rem;}
+.modal-abs-text{font-size:0.97rem;color:var(--mid);line-height:1.85;font-weight:300;}
+.modal-footer{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;gap:1rem;align-items:center;}
+.modal-doi{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;border:1.5px solid var(--accent-mid);padding:0.4rem 1rem;border-radius:2px;transition:all 0.2s;}
+.modal-doi:hover{background:var(--accent);color:white;}
+
+/* SKILLS section */
+.sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+.sk-block{background:var(--white);padding:2.2rem;transition:background 0.2s;}
+.sk-block:hover{background:var(--off);}
+.sk-h{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:1rem;}
+.sk-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.sk-tag{font-size:0.88rem;color:var(--mid);padding:0.25rem 0.7rem;border:1px solid var(--border);background:var(--off);border-radius:2px;transition:all 0.18s;cursor:default;}
+.sk-tag:hover{color:var(--ink);border-color:var(--accent-mid);background:var(--accent-light);}
+
+footer{background:var(--ink);padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.ft-n{font-family:'DM Serif Display',serif;font-style:italic;color:rgba(255,255,255,0.25);}
+.ft-c{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.12);}
+
+@media(max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .mob-btn{display:flex;}
+  .pub-card{grid-template-columns:1fr;gap:1rem;}
+  .pub-n{display:none;}
+  .pub-actions{flex-direction:row;align-items:center;}
+  .proj-grid{grid-template-columns:1fr;}
+  .sk-grid{grid-template-columns:1fr 1fr;}
+  .wrap{padding:0 1.5rem;}
+}
+@media(max-width:580px){
+  .sk-grid{grid-template-columns:1fr;}
+  .modal-box{padding:2rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curR"></div>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">S. M. Sohel Rana</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="education.html">Education</a></li>
+      <li><a href="experience.html">Experience</a></li>
+      <li><a href="research.html" class="active">Research</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="mailto:sohel.env46@gmail.com" class="nav-cta">Contact</a>
+      <button class="mob-btn" id="mb"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+<div class="mob-nav" id="mn">
+  <a href="index.html">Home</a><a href="education.html">Education</a>
+  <a href="experience.html">Experience</a><a href="research.html">Research</a>
+  <a href="certifications.html">Certifications</a>
+</div>
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="ph-eyebrow">Scholarly Work</div>
+    <h1 class="ph-title">Research &amp; <em>Publications</em></h1>
+    <p class="ph-sub">Peer-reviewed journal articles, conference presentations, and open-source projects in remote sensing, GeoAI, and environmental science.</p>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab-inner">
+    <button class="tab-btn active" data-tab="publications">Publications</button>
+    <button class="tab-btn" data-tab="projects">Open-Source Projects</button>
+    <button class="tab-btn" data-tab="skills">Skills &amp; Tools</button>
+  </div>
+</div>
+
+<div class="research-page">
+  <div class="wrap">
+
+    <!-- PUBLICATIONS TAB -->
+    <div class="tab-panel active" id="tab-publications">
+      <div class="sec-label">04 Journal Articles &amp; Conference Papers</div>
+      <div class="pub-list">
+
+        <div class="pub-card">
+          <div class="pub-n">01</div>
+          <div class="pub-body">
+            <div class="pub-venue">IEEE Transactions on Geoscience and Remote Sensing · 2026 <span class="pub-badge review">Under Review</span></div>
+            <div class="pub-title">B-Mamba: Burn severity mapping with a Mamba-based Siamese network using large-scale Landsat imagery</div>
+            <div class="pub-auth">Rana, S. M. S., Sung, T., Ruzcko, R. T., Im, J., Kang, Y., Lee, J. · Manuscript ID: TGRS-2026-01479</div>
+          </div>
+          <div class="pub-actions">
+            <button class="btn-abstract" data-pub="bmamba">Abstract</button>
+          </div>
+        </div>
+
+        <div class="pub-card">
+          <div class="pub-n">02</div>
+          <div class="pub-body">
+            <div class="pub-venue">International Journal of Applied Earth Observation and Geoinformation · 2026</div>
+            <div class="pub-title">Exploring the impacts of dual-polarized vegetation indices and U-shaped deep learning architectures on SAR-based burned area mapping</div>
+            <div class="pub-auth">Rana, S. M. S., Lee, J., Kang, Y., Im, J. <a href="https://doi.org/10.1016/j.jag.2026.105141" target="_blank" class="pub-doi">DOI →</a></div>
+          </div>
+          <div class="pub-actions">
+            <button class="btn-abstract" data-pub="sar-unet">Abstract</button>
+            <a href="https://doi.org/10.1016/j.jag.2026.105141" target="_blank" class="btn-doi-link">DOI →</a>
+          </div>
+        </div>
+
+        <div class="pub-card">
+          <div class="pub-n">03</div>
+          <div class="pub-body">
+            <div class="pub-venue">Natural Hazards Research · 2024</div>
+            <div class="pub-title">Flood risk mapping of the flood-prone Rangpur division of Bangladesh using remote sensing and multi-criteria analysis</div>
+            <div class="pub-auth">Rana, S. M. S., Habib, S. A., Sharifee, M. N. H., Sultana, N., Rahman, S. H. <a href="https://doi.org/10.1016/j.nhres.2023.09.012" target="_blank" class="pub-doi">DOI →</a></div>
+          </div>
+          <div class="pub-actions">
+            <button class="btn-abstract" data-pub="flood">Abstract</button>
+            <a href="https://doi.org/10.1016/j.nhres.2023.09.012" target="_blank" class="btn-doi-link">DOI →</a>
+          </div>
+        </div>
+
+        <div class="pub-card">
+          <div class="pub-n">04</div>
+          <div class="pub-body">
+            <div class="pub-venue">Engineering Proceedings · 2021 <span class="pub-badge conf">Conference</span></div>
+            <div class="pub-title">Analysis of NO₂ pollution over Bangladesh between the two COVID-19 caused lockdowns in 2020 and 2021 using Sentinel-5P products</div>
+            <div class="pub-auth">Rana, S. M. S., Ahmed, S. M. F., Akter, H. <a href="https://doi.org/10.3390/ASEC2021-11139" target="_blank" class="pub-doi">DOI →</a></div>
+          </div>
+          <div class="pub-actions">
+            <button class="btn-abstract" data-pub="no2">Abstract</button>
+            <a href="https://doi.org/10.3390/ASEC2021-11139" target="_blank" class="btn-doi-link">DOI →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div class="tab-panel" id="tab-projects">
+      <div class="sec-label">Open-Source · GitHub</div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-idx">01 / Active Detection · GK-2A Satellite</div>
+          <div class="proj-title">Active Wildfire Detection via GK-2A Geostationary Satellite</div>
+          <div class="proj-desc">AI-based detection of active forest fires using GK-2A geostationary satellite imagery, combining deep learning with real-time Earth observation data streams for rapid wildfire identification.</div>
+          <a href="https://github.com/sohel-raana/Active-Forest-Fire-Detection-using-GK-2A" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+        <div class="proj-card">
+          <div class="proj-idx">02 / Urban Analysis · Random Forest</div>
+          <div class="proj-title">Random Forest Urban Expansion Analysis</div>
+          <div class="proj-desc">Land cover change and nighttime light analysis through Random Forest classification, examining urban growth dynamics in Suwon and Hwaseong, South Korea using multi-temporal satellite data.</div>
+          <a href="https://github.com/sohel-raana/Random-Forest-Based-Urban-Expansion-Analysis" target="_blank" class="proj-link">View on GitHub →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS TAB -->
+    <div class="tab-panel" id="tab-skills">
+      <div class="sec-label">Technical Competencies</div>
+      <div class="sk-grid">
+        <div class="sk-block"><div class="sk-h">Geospatial Platforms</div><div class="sk-tags"><span class="sk-tag">ArcGIS</span><span class="sk-tag">QGIS</span><span class="sk-tag">Google Earth Engine</span><span class="sk-tag">GDAL</span></div></div>
+        <div class="sk-block"><div class="sk-h">Programming</div><div class="sk-tags"><span class="sk-tag">Python</span><span class="sk-tag">JavaScript (GEE)</span></div></div>
+        <div class="sk-block"><div class="sk-h">Deep Learning</div><div class="sk-tags"><span class="sk-tag">U-Net / U-shaped</span><span class="sk-tag">Mamba / SSM</span><span class="sk-tag">Siamese Networks</span><span class="sk-tag">Image Translation</span></div></div>
+        <div class="sk-block"><div class="sk-h">EO Sensors</div><div class="sk-tags"><span class="sk-tag">Sentinel-1 SAR</span><span class="sk-tag">Landsat</span><span class="sk-tag">MODIS</span><span class="sk-tag">Sentinel-5P</span></div></div>
+        <div class="sk-block"><div class="sk-h">Applications</div><div class="sk-tags"><span class="sk-tag">Burned Area Mapping</span><span class="sk-tag">Flood Risk</span><span class="sk-tag">GPP Estimation</span><span class="sk-tag">LAI Sampling</span><span class="sk-tag">Air Quality</span></div></div>
+        <div class="sk-block"><div class="sk-h">Field &amp; Survey</div><div class="sk-tags"><span class="sk-tag">KoBo Toolbox</span><span class="sk-tag">LAI-2200C</span><span class="sk-tag">DHP Camera</span><span class="sk-tag">PDM / AIMA</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ABSTRACT MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-journal" id="modal-journal"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-auth" id="modal-auth"></div>
+    <div class="modal-abs-label">Abstract</div>
+    <div class="modal-abs-text" id="modal-abs"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-n">S. M. Sohel Rana</div>
+  <div class="ft-c">© 2026 · Dhaka, Bangladesh</div>
+</footer>
+
+<script>
+// Cursor
+var c=document.getElementById('cur'),r=document.getElementById('curR');
+document.addEventListener('mousemove',function(e){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';r.style.left=e.clientX+'px';r.style.top=e.clientY+'px';});
+var mb=document.getElementById('mb'),mn=document.getElementById('mn');
+mb.addEventListener('click',function(){mb.classList.toggle('o');mn.classList.toggle('o');});
+mn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mb.classList.remove('o');mn.classList.remove('o');});});
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var tab=this.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    this.classList.add('active');
+    document.getElementById('tab-'+tab).classList.add('active');
+  });
+});
+
+// Abstract data
+var abstracts={
+  'bmamba':{
+    journal:'IEEE Transactions on Geoscience and Remote Sensing · 2026 · Under Review',
+    title:'B-Mamba: Burn severity mapping with a Mamba-based Siamese network using large-scale Landsat imagery',
+    auth:'Rana, S. M. S., Sung, T., Ruzcko, R. T., Im, J., Kang, Y., Lee, J. · Manuscript ID: TGRS-2026-01479',
+    abs:'Burn severity mapping is critical for post-wildfire assessment and ecosystem recovery monitoring. While deep learning approaches have shown promise, effectively capturing long-range spatial dependencies in large-scale satellite imagery remains challenging. This study introduces B-Mamba, a novel Mamba-based Siamese network architecture designed specifically for burn severity estimation from multi-temporal Landsat imagery. Leveraging the State Space Model (SSM) backbone of Mamba, B-Mamba efficiently models long-range contextual relationships across pre- and post-fire image pairs without the quadratic complexity of attention mechanisms. The Siamese design enables robust change detection by learning discriminative feature representations from paired temporal observations. Evaluated across diverse wildfire events using a large-scale Landsat dataset, B-Mamba achieves state-of-the-art performance in burn severity classification, demonstrating significant improvements over existing U-Net and transformer-based baselines while maintaining computational efficiency.',
+    doi:null
+  },
+  'sar-unet':{
+    journal:'International Journal of Applied Earth Observation and Geoinformation · 2026',
+    title:'Exploring the impacts of dual-polarized vegetation indices and U-shaped deep learning architectures on SAR-based burned area mapping',
+    auth:'Rana, S. M. S., Lee, J., Kang, Y., Im, J.',
+    abs:'Synthetic Aperture Radar (SAR) imagery offers cloud-penetrating capabilities critical for rapid post-wildfire burned area mapping, yet the optimal combination of SAR-derived vegetation indices and deep learning architectures remains underexplored. This study systematically evaluates the influence of dual-polarized SAR vegetation indices (derived from Sentinel-1 VV and VH polarizations) and various U-shaped deep learning architectures on burned area detection accuracy. We compare multiple index formulations including the Dual-Polarization SAR Vegetation Index (DPSVI) and Radar Vegetation Index (RVI) across five major wildfire events. Results reveal that dual-polarized indices consistently outperform single-polarization features, and that attention-augmented U-Net variants provide the best spatial generalization. The findings offer practical guidance for operational burned area mapping systems using freely available Sentinel-1 data.',
+    doi:'https://doi.org/10.1016/j.jag.2026.105141'
+  },
+  'flood':{
+    journal:'Natural Hazards Research · 2024',
+    title:'Flood risk mapping of the flood-prone Rangpur division of Bangladesh using remote sensing and multi-criteria analysis',
+    auth:'Rana, S. M. S., Habib, S. A., Sharifee, M. N. H., Sultana, N., Rahman, S. H.',
+    abs:'Bangladesh is among the world\'s most flood-vulnerable nations, with the Rangpur Division experiencing recurrent severe flooding due to its proximity to the Brahmaputra-Jamuna river system and flat topography. This study presents a comprehensive flood risk mapping framework integrating remote sensing data with multi-criteria decision analysis (MCDA) using the Analytical Hierarchy Process (AHP). Eight flood conditioning factors — including elevation, slope, distance to rivers, land use/land cover, soil type, rainfall, drainage density, and NDVI — were derived from multi-source remote sensing products (Landsat, SRTM DEM, Sentinel-2) processed in Google Earth Engine. AHP-derived weights were applied to generate a composite flood risk map classified into five risk zones. Validation against historical flood inundation records demonstrated high accuracy (AUC: 0.89), with high and very-high risk zones covering approximately 34% of the study area, predominantly in low-lying char lands and floodplains.',
+    doi:'https://doi.org/10.1016/j.nhres.2023.09.012'
+  },
+  'no2':{
+    journal:'Engineering Proceedings · 2021 · Applied Sciences and Engineering Conference',
+    title:'Analysis of NO₂ pollution over Bangladesh between the two COVID-19 caused lockdowns in 2020 and 2021 using Sentinel-5P products',
+    auth:'Rana, S. M. S., Ahmed, S. M. F., Akter, H.',
+    abs:'The COVID-19 pandemic induced unprecedented reductions in anthropogenic emissions globally, providing a natural experiment to assess the relationship between human activity and air quality. This study analyzes tropospheric NO₂ column concentrations over Bangladesh during the lockdown periods of 2020 and 2021 using TROPOMI instrument data from the Sentinel-5P satellite. Time-series analysis of NO₂ vertical column density reveals significant spatial and temporal variations across major urban centers including Dhaka, Chittagong, and Sylhet. During the 2020 lockdown, NO₂ concentrations declined by up to 40% relative to the 2019 baseline in industrial zones. The 2021 lockdown showed comparatively lower reductions, potentially attributable to economic reopening and increased informal sector activity. These findings highlight the sensitivity of satellite-derived NO₂ as an indicator of urban air quality dynamics and the role of traffic and industrial emissions in Bangladesh\'s deteriorating atmospheric environment.',
+    doi:'https://doi.org/10.3390/ASEC2021-11139'
+  }
+};
+
+// Open modal
+document.querySelectorAll('.btn-abstract').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var key=this.dataset.pub;
+    var d=abstracts[key];
+    if(!d)return;
+    document.getElementById('modal-journal').textContent=d.journal;
+    document.getElementById('modal-title').textContent=d.title;
+    document.getElementById('modal-auth').textContent=d.auth;
+    document.getElementById('modal-abs').textContent=d.abs;
+    var footer=document.getElementById('modal-footer');
+    footer.innerHTML='';
+    if(d.doi){
+      var a=document.createElement('a');
+      a.href=d.doi;a.target='_blank';a.className='modal-doi';a.textContent='View Paper →';
+      footer.appendChild(a);
+    }
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+});
+
+// Close modal
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
